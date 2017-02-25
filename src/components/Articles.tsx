@@ -1,7 +1,7 @@
 import * as React from 'react';
 
 interface IProps {
-    articles : [Article]
+    articles: [Article];
 }
 
 export class Articles extends React.Component<IProps, null> {
@@ -10,14 +10,14 @@ export class Articles extends React.Component<IProps, null> {
         const {articles} = this.props;
         const articlesSX = articles.map((article, index) => {
             return (
-                <li className="article">
+                <li className="article" key={article.title + index}>
                     <h3>{article.title}</h3>
                     <p>{article.content}</p>
                 </li>
             );
         });
         return (
-            <div className="articles">
+            <div className="container articles">
                 <ul>
                     {articlesSX}
                 </ul>

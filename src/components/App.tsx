@@ -7,15 +7,13 @@ const logo = require('../data/logo.svg');
 export class App extends React.Component<null, null> {
 
     render() {
-        // debugger;
-        // const articlesList : [Article] = JSON.parse(articleJSON);
         return (
             <div className="App">
-                <Header/>
                 <div className="App-header">
                     <img src={logo} className="App-logo" alt="logo"/>
-                    <h2>Welcome to React</h2>
+                    <h2>Блог ты ж мой!</h2>
                 </div>
+                <Header/>
                 <Articles articles={articleJSON}/>
             </div>
         );

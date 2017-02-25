@@ -1,6 +1,6 @@
 import * as React from 'react';
-import '../style/Header.css'
-const headerItems = ['home', 'New features', 'Press', 'New hires', 'About'];
+
+const headerItems = ['Записи', 'Теги', 'Темы', 'О нас', 'Вход'];
 
 export class Header extends React.Component<null, null> {
 
@@ -8,8 +8,10 @@ export class Header extends React.Component<null, null> {
 
         const itemsSX = headerItems.map((item, index) => {
             return (
-                <li className="nav-item">
-                    <a key={index} className="nav-link" href="#"> {item} </a>
+                <li className="nav-item" key={item + index}>
+                    <a className="nav-link" href="#">
+                        {item}
+                    </a>
                 </li>
             );
         });
