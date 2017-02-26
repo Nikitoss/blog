@@ -1,10 +1,24 @@
 import * as React from 'react';
+import {connect} from 'react-redux'
+import {bindActionCreators} from 'redux'
+
+import {MyState} from "../model/MyState";
+import {Article} from "../model/Article";
+
+import FieldForCreatePost from './FieldForCreatePost';
+import * as articleActions from '../actions/ArticleActions';
+
 
 interface IProps {
     articles: [Article];
+    articleActions?: [any];
 }
 
-export class Articles extends React.Component<IProps, null> {
+interface IState {
+
+}
+
+class Articles extends React.Component<IProps, IState> {
 
     render() {
         const {articles} = this.props;
@@ -18,6 +32,7 @@ export class Articles extends React.Component<IProps, null> {
         });
         return (
             <div className="container articles">
+                <FieldForCreatePost/>
                 <ul>
                     {articlesSX}
                 </ul>
@@ -25,3 +40,18 @@ export class Articles extends React.Component<IProps, null> {
         );
     }
 }
+
+function mapStateToProps(state: MyState) {
+    debugger;
+    return {
+        articles: state.articles
+    };
+}
+
+function mapDispatchToProps(dispatch: any) {
+    return {
+        articleActions: bindActionCreators(articleActions.addArticle, dispatch)
+    };
+}
+
+export default connect(mapStateToProps, mapDispatchToProps)(Articles);

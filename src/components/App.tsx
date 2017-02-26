@@ -1,21 +1,35 @@
 import * as React from 'react';
-import {Header} from './Header';
-import {Articles} from './Articles';
-const articleJSON = require('../data/articles.json');
-const logo = require('../data/logo.svg');
+import {connect} from 'react-redux'
 
-export class App extends React.Component<null, null> {
+import {Header} from './Header';
+import Articles from './Articles';
+
+import {MyState} from "../model/MyState";
+import {UserInfo} from "../model/UserInfo";
+
+interface IProps {
+    user: UserInfo;
+}
+
+class App extends React.Component<IProps, void> {
 
     render() {
+        debugger;
+        const {user} = this.props;
         return (
             <div className="App">
-                <div className="App-header">
-                    <img src={logo} className="App-logo" alt="logo"/>
-                    <h2>Блог ты ж мой!</h2>
-                </div>
+                <span>{user.name}</span>
                 <Header/>
-                <Articles articles={articleJSON}/>
+                <Articles/>
             </div>
         );
     }
 }
+
+function mapStateToProps(state: MyState) {
+    return {
+        user: state.user
+    };
+}
+
+export default connect(mapStateToProps)(App);
