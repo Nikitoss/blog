@@ -1,17 +1,17 @@
 import * as React from 'react';
-import {connect} from 'react-redux'
-import {bindActionCreators} from 'redux'
+import {connect, Dispatch} from 'react-redux'
+//import {bindActionCreators} from 'redux'
 
 import {MyState} from "../model/MyState";
 import {Article} from "../model/Article";
 
 import FieldForCreatePost from './FieldForCreatePost';
-import * as articleActions from '../actions/ArticleActions';
+import {ArticleActions} from "../actions/ArticleActions";
 
 
 interface IProps {
     articles: [Article];
-    articleActions?: [any];
+    articleActions: ArticleActions;
 }
 
 interface IState {
@@ -48,10 +48,19 @@ function mapStateToProps(state: MyState) {
     };
 }
 
-function mapDispatchToProps(dispatch: any) {
+const mapDispatchToProps = (dispatch: Dispatch<any>) => {
     return {
-        articleActions: bindActionCreators(articleActions.addArticle, dispatch)
+        //articleActions: bindActionCreators(new ArticleActions().addArticle, dispatch)
     };
-}
+};
+
+// const mapDispatchToProps = (dispatch: any) => ({
+//     incr: () => {
+//         dispatch({ type: 'INCR', by: 1 });
+//     },
+//     decr: () => {
+//         dispatch({ type: 'INCR', by: -1 });
+//     }
+// });
 
 export default connect(mapStateToProps, mapDispatchToProps)(Articles);
