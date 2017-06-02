@@ -3,5 +3,5 @@ import {UserInfo} from './UserInfo';
 
 export class MyState {
     user: UserInfo;
-    articles?: [Article];
+    articles?: Article[];
 }

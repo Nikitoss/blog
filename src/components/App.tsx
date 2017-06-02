@@ -1,34 +1,52 @@
 import * as React from 'react';
-import {connect} from 'react-redux'
+import {connect} from 'react-redux';
 
-import {Header} from './Header';
 import Articles from './Articles';
 
-import {MyState} from "../model/MyState";
-import {UserInfo} from "../model/UserInfo";
+import {MyState} from '../model/MyState';
+import {UserInfo} from '../model/UserInfo';
+import {Article} from '../model/Article';
 
 interface IProps {
-    user: UserInfo;
+    user?: UserInfo;
 }
 
-class App extends React.Component<IProps, void> {
+interface IState {
+    stateArticles: [Article];
+}
+
+class App extends React.Component<IProps, IState> {
+
+    state: IState = {
+        stateArticles: [
+            {
+                title: 'title_1',
+                content : 'content_1'
+            },
+            {
+                title: 'title_2',
+                content : 'content_2'
+            }
+        ]
+    };
 
     render() {
-        debugger;
         const {user} = this.props;
+        const {stateArticles} = this.state;
+        console.log('APP ____ articles', stateArticles);
         return (
             <div className="App">
-                <span>{user.name}</span>
-                <Header/>
-                <Articles/>
+                <span>{user && user.name}</span>
+                <Articles articles={this.state.stateArticles}/>
             </div>
         );
     }
 }
 
 function mapStateToProps(state: MyState) {
+    console.log('mapStateToProps_App', state);
     return {
-        user: state.user
+        user: state && state.user,
     };
 }
 

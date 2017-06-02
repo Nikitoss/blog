@@ -1,28 +1,48 @@
 import * as React from 'react';
-import {connect, Dispatch} from 'react-redux'
-//import {bindActionCreators} from 'redux'
+import {connect} from 'react-redux';
+import {bindActionCreators} from 'redux';
 
-import {MyState} from "../model/MyState";
-import {Article} from "../model/Article";
+import {MyState} from '../model/MyState';
+import {Article} from '../model/Article';
 
+import {articleActions} from '../actions/ArticleActions';
 import FieldForCreatePost from './FieldForCreatePost';
-import {ArticleActions} from "../actions/ArticleActions";
-
 
 interface IProps {
-    articles: [Article];
-    articleActions: ArticleActions;
+    articles?: Article[];
+    username?: string;
+    articleActions?: any;
 }
 
-interface IState {
+class Articles extends React.Component<IProps, void> {
 
-}
+    componentWillMount() {
+        console.log('componentWillMount!');
+    }
 
-class Articles extends React.Component<IProps, IState> {
+    componentDidMount() {
+        console.log('componentDidMount!');
+
+    }
+
+    componentWillReceiveProps(nextProps: IProps) {
+        console.log('componentWillReceiveProps!');
+    }
+
+    shouldComponentUpdate(nextProps: Readonly<IProps>, nextState: void, nextContext: any) {
+        console.log('shouldComponentUpdate!');
+        return true;
+    }
+
+    handleAddArticle = () => {
+        const article: Article = {content: 'hahaha', title: 'hahaha'};
+        this.props.articleActions.addArticle(article);
+    }
 
     render() {
+        console.log('Articles_render!');
         const {articles} = this.props;
-        const articlesSX = articles.map((article, index) => {
+        const articlesSX = articles && articles.map((article, index) => {
             return (
                 <li className="article" key={article.title + index}>
                     <h3>{article.title}</h3>
@@ -42,25 +62,18 @@ class Articles extends React.Component<IProps, IState> {
 }
 
 function mapStateToProps(state: MyState) {
-    debugger;
+    console.log('mapStateToProps_Articles', state);
     return {
-        articles: state.articles
+        articles: state.articles,
+        username: state.user.name
     };
 }
 
-const mapDispatchToProps = (dispatch: Dispatch<any>) => {
+const mapDispatchToProps = (dispatch: any) => {
+    console.log('Article_mapDispatchToProps');
     return {
-        //articleActions: bindActionCreators(new ArticleActions().addArticle, dispatch)
+        articleActions: bindActionCreators(articleActions, dispatch)
     };
 };
-
-// const mapDispatchToProps = (dispatch: any) => ({
-//     incr: () => {
-//         dispatch({ type: 'INCR', by: 1 });
-//     },
-//     decr: () => {
-//         dispatch({ type: 'INCR', by: -1 });
-//     }
-// });
 
 export default connect(mapStateToProps, mapDispatchToProps)(Articles);
