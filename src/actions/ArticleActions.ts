@@ -13,5 +13,5 @@ export function addArticle(article: Article): Action {
 };
 
 export const articleActions: ActionCreatorsMapObject = {
-    'addArticle' : addArticle
+    ADD_ARTICLE : (article: Article) => article
 };

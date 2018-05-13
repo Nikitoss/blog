@@ -1,7 +1,7 @@
 import * as React from 'react';
 import {connect} from 'react-redux';
 
-import Articles from './Articles';
+// import Articles from './Articles';
 
 import {MyState} from '../model/MyState';
 import {UserInfo} from '../model/UserInfo';
@@ -12,7 +12,7 @@ interface IProps {
 }
 
 interface IState {
-    stateArticles: [Article];
+    stateArticles: Article[];
 }
 
 class App extends React.Component<IProps, IState> {
@@ -36,18 +36,30 @@ class App extends React.Component<IProps, IState> {
         console.log('APP ____ articles', stateArticles);
         return (
             <div className="App">
-                <span>{user && user.name}</span>
-                <Articles articles={this.state.stateArticles}/>
+                <span>
+                    {user && user.name}
+                </span>
+                {/*<Articles*/}
+                    {/*articles={this.state.stateArticles}*/}
+                {/*/>*/}
             </div>
         );
     }
 }
 
-function mapStateToProps(state: MyState) {
+function mapStateToProps(state: MyState) : IProps {
     console.log('mapStateToProps_App', state);
     return {
         user: state && state.user,
     };
 }
 
-export default connect(mapStateToProps)(App);
+// function mapDispatchToProps(dispatch) {
+//     return {
+//
+//     }
+// }
+
+const AppConnector = connect(mapStateToProps)(App);
+
+export {AppConnector as App};
